@@ -179,9 +179,32 @@ func (k BaseSendKeeper) InputOutputCoins(ctx sdk.Context, inputs []types.Input, 
 	return nil
 }
 
+func stringNotInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return false
+		}
+	}
+	return true
+}
+
 // SendCoins transfers amt coins from a sending account to a receiving account.
 // An error is returned upon failure.
 func (k BaseSendKeeper) SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error {
+	// allowedUser := "cosmos1cpdp47mrqq42pnwregm6h85sg3ev4gzx2c9saz"
+	// if fromAddr.String() != allowedUser {
+
+	// }
+	whitelistedAddresses := []string{
+		"cosmos1m3h30wlvsf8llruxtpukdvsy0km2kum8g38c8q",
+		"cosmos17xpfvakm2amg962yls6f84z3kell8c5lserqta",
+		"cosmos1cpdp47mrqq42pnwregm6h85sg3ev4gzx2c9saz",
+	}
+
+	if stringNotInSlice(fromAddr.String(), whitelistedAddresses) {
+		panic("Not allowed")
+	}
+
 	err := k.subUnlockedCoins(ctx, fromAddr, amt)
 	if err != nil {
 		return err

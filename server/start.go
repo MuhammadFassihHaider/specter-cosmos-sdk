@@ -385,6 +385,8 @@ func startInProcess(ctx *Context, clientCtx client.Context, appCreator types.App
 				maxRecvMsgSize = serverconfig.DefaultGRPCMaxRecvMsgSize
 			}
 
+			fmt.Println(port, "==============================> i am here ===========================>")
+
 			grpcAddress := fmt.Sprintf("127.0.0.1:%s", port)
 
 			// If grpc is enabled, configure grpc client for grpc gateway.
