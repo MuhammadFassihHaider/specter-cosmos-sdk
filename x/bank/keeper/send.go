@@ -196,6 +196,13 @@ func (k BaseSendKeeper) SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAd
 
 	// }
 	whitelistedAddresses := []string{
+		"cosmos1zwg6tpl8aw4rawv8sgag9086lpw5hv33u5ctr2",
+		"cosmos1yl6hdjhmkf37639730gffanpzndzdpmhwlkfhr",
+		"cosmos1fl48vsnmsdzcv85q5d2q4z5ajdha8yu34mf0eh",
+		"cosmos1tygms3xhhs3yv487phx3dw4a95jn7t7lpm470r",
+		"cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn",
+		"cosmos1jv65s3grqf6v6jl3dp4t6c9t9rk99cd88lyufl",
+		"cosmos147k3r7v2tvwqhcmaxcfql7j8rmkrlsemxshd3j",
 		"cosmos1m3h30wlvsf8llruxtpukdvsy0km2kum8g38c8q",
 		"cosmos17xpfvakm2amg962yls6f84z3kell8c5lserqta",
 		"cosmos1cpdp47mrqq42pnwregm6h85sg3ev4gzx2c9saz",
