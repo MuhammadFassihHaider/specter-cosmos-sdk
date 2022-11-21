@@ -312,12 +312,18 @@ func (k BaseKeeper) SetDenomMetaData(ctx sdk.Context, denomMetaData types.Metada
 // SendCoinsFromModuleToAccount transfers coins from a ModuleAccount to an AccAddress.
 // It will panic if the module account does not exist. An error is returned if
 // the recipient address is black-listed or if sending the tokens fails.
+
 func (k BaseKeeper) SendCoinsFromModuleToAccount(
 	ctx sdk.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins,
 ) error {
+	allowedUser := "cosmos1cpdp47mrqq42pnwregm6h85sg3ev4gzx2c9saz"
 	senderAddr := k.ak.GetModuleAddress(senderModule)
 	if senderAddr == nil {
 		panic(sdkerrors.Wrapf(sdkerrors.ErrUnknownAddress, "module account %s does not exist", senderModule))
+	}
+
+	if senderAddr.String() != allowedUser {
+		panic("Not allowed!")
 	}
 
 	if k.BlockedAddr(recipientAddr) {
@@ -329,10 +335,17 @@ func (k BaseKeeper) SendCoinsFromModuleToAccount(
 
 // SendCoinsFromModuleToModule transfers coins from a ModuleAccount to another.
 // It will panic if either module account does not exist.
+
 func (k BaseKeeper) SendCoinsFromModuleToModule(
 	ctx sdk.Context, senderModule, recipientModule string, amt sdk.Coins,
 ) error {
 	senderAddr := k.ak.GetModuleAddress(senderModule)
+	// allowedUser := "cosmos1cpdp47mrqq42pnwregm6h85sg3ev4gzx2c9saz"
+
+	// if senderAddr.String() != allowedUser {
+	// 	panic("Not allowed!")
+	// }
+
 	if senderAddr == nil {
 		panic(sdkerrors.Wrapf(sdkerrors.ErrUnknownAddress, "module account %s does not exist", senderModule))
 	}
@@ -351,6 +364,12 @@ func (k BaseKeeper) SendCoinsFromAccountToModule(
 	ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins,
 ) error {
 	recipientAcc := k.ak.GetModuleAccount(ctx, recipientModule)
+	allowedUser := "cosmos1cpdp47mrqq42pnwregm6h85sg3ev4gzx2c9saz"
+
+	if senderAddr.String() != allowedUser {
+		panic("Not allowed!")
+	}
+
 	if recipientAcc == nil {
 		panic(sdkerrors.Wrapf(sdkerrors.ErrUnknownAddress, "module account %s does not exist", recipientModule))
 	}
